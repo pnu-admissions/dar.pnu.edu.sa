@@ -1,158 +1,224 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل الدخول - بوابة القبول</title>
-  <!-- استخدام Tailwind CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-  <style>
-    /* تنسيقات أساسية لمحاكاة تصميم موقع جامعة الأميرة نورة */
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #f5f7fa;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #f2f9f8;
-      color:rgb(14, 40, 107);
-      padding: 15px 0;
-    }
-    header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header img {
-      width: 150px;
-      height: 150px;
-    }
-    header h1 {
-      font-size: 1em;
-      margin: 0 10px;
-    }
-    nav a {
-      color: #055d4a;
-      font-weight: bold;
-      margin: 0 10px;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #ffcc00;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-    .btn {
-      background-color: #03665c;
-      color: #fff;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #005580;
-    }
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-bottom: 15px;
-    }
-    .page {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-<body>
-  <!-- رأس الموقع -->
-  <header>
-    <div class="container flex items-center justify-between px-4">
-      <div class="flex items-center">
-        <!-- استبدل رابط الشعار برابط شعار الجامعة الفعلي -->
-        <img src="pnu-logo-ar.svg" alt="شعار الجامعة">
-        <h1>بوابة القبول الأكاديمي</h1>
-      </div>
-      <nav>
-        <a href="#">الرئيسية</a>
-        <a href="#">عن الجامعة</a>
-        <a href="#">القبول</a>
-        <a href="#">التواصل</a>
-      </nav>
-    </div>
-  </header>
+import React, { useState } from "react";
 
-  <!-- المحتوى الرئيسي -->
-  <div id="content" class="container mt-8 px-4">
-    <div id="loginPage" class="page min-h-screen flex items-center justify-center">
-      <div class="w-full max-w-md">
-        <h2 class="text-2xl font-bold mb-6 text-center">تسجيل الدخول</h2>
-        <input type="text" id="identityNumber" placeholder="الرقم الجامعي">
-        <input type="password" id="password" placeholder="كلمة المرور">
-        <div class="flex items-center mb-4">
-          <input type="checkbox" id="rememberMe" class="mr-2">
-          <label for="rememberMe">تذكرني</label>
+// صفحة React واحدة جاهزة بالـ Tailwind (RTL) لعرض موقع استثمار تجريبي
+// ملاحظة: استبدل الشعارات، الأيقونات، والروابط بالمحتوى الحقيقي عند النشر.
+
+export default function InvestmentLanding() {
+  const [email, setEmail] = useState("");
+  const [plan, setPlan] = useState("basic");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubscribe(e) {
+    e.preventDefault();
+    // هنا عادة ترسل بيانات إلى API; الآن نظهر رسالة شكر تجريبية
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3500);
+  }
+
+  return (
+    <div lang="ar" dir="rtl" className="min-h-screen bg-gray-50 text-gray-900 antialiased">
+      <header className="bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white font-bold">ر</div>
+            <div>
+              <h1 className="text-lg font-semibold">منصة الريادة للاستثمار</h1>
+              <p className="text-xs text-gray-500">حلول استثمارية موثوقة ومبسطة</p>
+            </div>
+          </div>
+          <nav className="hidden md:flex gap-6 text-sm">
+            <a href="#home" className="hover:text-blue-600">الرئيسية</a>
+            <a href="#plans" className="hover:text-blue-600">الخطط</a>
+            <a href="#how" className="hover:text-blue-600">كيف نعمل</a>
+            <a href="#about" className="hover:text-blue-600">من نحن</a>
+            <a href="#contact" className="hover:text-blue-600">تواصل</a>
+          </nav>
+          <div className="flex items-center gap-3">
+            <button className="hidden md:inline-block px-4 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium">تسجيل دخول</button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium shadow">ابدأ الآن</button>
+          </div>
         </div>
-        <button onclick="handleLogin()" class="btn w-full">تسجيل الدخول</button>
-        <div id="message" class="text-red-500 mt-4 text-center"></div>
+      </header>
+
+      <main id="home" className="max-w-6xl mx-auto px-6 py-12">
+        <section className="w-full bg-blue-900 text-white py-20"> <div className="max-w-4xl mx-auto text-center px-6"> <h1 className="text-4xl md:text-5xl font-bold mb-6">منصة الريادة للاستثمار – السعودية</h1> <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">منصة استثمار سعودية موثوقة، تقدّم حلولًا مالية مبتكرة ومتوافقة مع أنظمة هيئة السوق المالية، لتمكين المستثمرين داخل المملكة من الاستثمار بسهولة وأمان عبر خدمات رقمية عالية الجودة.</p> <button className="bg-white text-blue-900 px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:opacity-90 transition">ابدأ الاستثمار الآن</button> </div> </section>
+
+        <section id="how" className="mt-16">
+          <h3 className="text-2xl font-bold">كيف نعمل</h3>
+          <p className="mt-2 text-gray-600">نقدّم آليات استثمار شفافة ومُدارة بواسطة فريق خبراء، مع أدوات للمتابعة والتقارير الدورية.</p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="bg-white p-5 rounded-lg shadow-sm">
+              <h4 className="font-semibold">تحليل متقدم</h4>
+              <p className="text-sm text-gray-500 mt-2">نماذج تقييم ومؤشرات لاتخاذ قرارات مبنية على بيانات.</p>
+            </div>
+            <div className="bg-white p-5 rounded-lg shadow-sm">
+              <h4 className="font-semibold">تنويع ذكي</h4>
+              <p className="text-sm text-gray-500 mt-2">نوزع المخاطر عبر فئات استثمارية مختلفة لتقليل التقلب.</p>
+            </div>
+            <div className="bg-white p-5 rounded-lg shadow-sm">
+              <h4 className="font-semibold">تقارير دورية</h4>
+              <p className="text-sm text-gray-500 mt-2">تقارير أداء شهرية وسهلة الفهم لكل مستثمر.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="plans" className="mt-16">
+          <h3 className="text-2xl font-bold">الخطط</h3>
+          <p className="text-gray-600 mt-2">اختر الخطة الأنسب لك — كل خطة مصممة لهدف استثماري مختلف.</p>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-3">
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="text-sm font-semibold">الخطة الأساسية</div>
+              <div className="mt-4 text-3xl font-bold">6% سنويًا</div>
+              <ul className="mt-4 text-sm space-y-2 text-gray-600">
+                <li>حد أدنى 2000 ريال</li>
+                <li>مراجعة ربع سنوية</li>
+                <li>دعم عبر البريد</li>
+              </ul>
+              <button className="mt-6 w-full py-2 bg-blue-50 text-blue-700 rounded-lg font-medium">أبدأ بالخطة</button>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-md border-2 border-blue-600">
+              <div className="text-sm font-semibold">الخطة الاحترافية</div>
+              <div className="mt-4 text-3xl font-bold">9% سنويًا</div>
+              <ul className="mt-4 text-sm space-y-2 text-gray-600">
+                <li>حد أدنى 10,000 ريال</li>
+                <li>مستشار استثماري خاص</li>
+                <li>تقارير شهرية</li>
+              </ul>
+              <button className="mt-6 w-full py-2 bg-blue-600 text-white rounded-lg font-medium">أبدأ بالخطة</button>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-md border">
+              <div className="text-sm font-semibold">خطة الشركاء</div>
+              <div className="mt-4 text-3xl font-bold">مخصص</div>
+              <ul className="mt-4 text-sm space-y-2 text-gray-600">
+                <li>حلول مؤسسية</li>
+                <li>دعم مخصص 24/7</li>
+                <li>استراتيجية مخصصة</li>
+              </ul>
+              <button className="mt-6 w-full py-2 border border-blue-600 rounded-lg font-medium">اطلب عرضًا</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="mt-16 bg-white p-6 rounded-xl shadow-sm">
+          <h3 className="text-2xl font-bold">من نحن</h3>
+          <p className="mt-3 text-gray-600">فريق من المستشارين الماليين والمحللين السوقيين ذوي خبرة. نعمل بشفافية ونهدف لتمكين المستثمرين من تحقيق أهدافهم المالية بثقة.</p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="p-4">
+              <div className="font-semibold">رؤية</div>
+              <p className="text-sm text-gray-500 mt-2">تمكين الجميع من الوصول لأدوات استثمارية متقدمة.</p>
+            </div>
+            <div className="p-4">
+              <div className="font-semibold">قيمة</div>
+              <p className="text-sm text-gray-500 mt-2">شفافية، أمان، ونتائج قابلة للقياس.</p>
+            </div>
+            <div className="p-4">
+              <div className="font-semibold">التزام</div>
+              <p className="text-sm text-gray-500 mt-2">حماية أموال العملاء واتباع أفضل ممارسات الحوكمة.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="mt-16">
+          <h3 className="text-2xl font-bold">تواصل معنا</h3>
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setMessage("");
+                alert("تم إرسال رسالتك. (تجريبي)");
+              }}
+              className="bg-white p-6 rounded-lg shadow-sm"
+            >
+              <label className="block text-sm">الاسم</label>
+              <input required className="w-full mt-2 px-4 py-3 border rounded-lg" />
+
+              <label className="block text-sm mt-4">البريد الإلكتروني</label>
+              <input required type="email" className="w-full mt-2 px-4 py-3 border rounded-lg" />
+
+              <label className="block text-sm mt-4">الرسالة</label>
+              <textarea value={message} onChange={(e) => setMessage(e.target.value)} className="w-full mt-2 px-4 py-3 border rounded-lg" rows={5} />
+
+              <button type="submit" className="mt-4 px-5 py-3 bg-blue-600 text-white rounded-lg">أرسل الرسالة</button>
+            </form>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h4 className="font-semibold">معلومات التواصل</h4>
+              <p className="text-sm text-gray-500 mt-2">الهاتف: +966 5X XXX XXXX</p>
+              <p className="text-sm text-gray-500 mt-2">البريد: info@riyadah-invest.com</p>
+
+              <div className="mt-6">
+                <h5 className="font-medium">روابط سريعة</h5>
+                <ul className="mt-2 text-sm text-gray-600 space-y-1">
+                  <li>الأسئلة الشائعة</li>
+                  <li>الشروط والأحكام</li>
+                  <li>سياسة الخصوصية</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer className="mt-16 py-8 text-center text-sm text-gray-500">
+          © {new Date().getFullYear()} منصة الريادة للاستثمار — جميع الحقوق محفوظة.
+        </footer>
+      
+<section className="py-20 bg-gray-50">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h2 className="text-3xl font-bold text-blue-900 mb-6">لماذا منصة الريادة للاستثمار؟</h2>
+    <p className="text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed">نلتزم في منصة الريادة بتقديم خدمات استثمارية موثوقة ومتوافقة مع أنظمة ولوائح هيئة السوق المالية داخل المملكة العربية السعودية، لضمان تجربة آمنة وشفافة للمستثمرين.</p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
+        <h3 className="text-xl font-semibold text-blue-900 mb-3">التوافق النظامي</h3>
+        <p className="text-gray-600">جميع العمليات المالية والخدمات الاستثمارية متماشية مع الأنظمة السعودية ولوائح هيئة السوق المالية.</p>
+      </div>
+      <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
+        <h3 className="text-xl font-semibold text-blue-900 mb-3">أعلى معايير الأمان</h3>
+        <p className="text-gray-600">أنظمة حماية متقدمة لضمان سرية بيانات المستثمرين وأموالهم.</p>
+      </div>
+      <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
+        <h3 className="text-xl font-semibold text-blue-900 mb-3">سهولة الاستخدام</h3>
+        <p className="text-gray-600">واجهة بسيطة وسريعة تتيح لك الاستثمار بخطوات واضحة ودون تعقيد.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <script>
-    // دالة معالجة تسجيل الدخول والتحقق من البيانات
-    function handleLogin() {
-      const identityNumber = document.getElementById('identityNumber').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const rememberMe = document.getElementById('rememberMe').checked;
-      const messageDiv = document.getElementById('message');
+<section className="py-20 bg-white border-t border-gray-200">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h2 className="text-3xl font-bold text-blue-900 mb-6">الخدمات الاستثمارية</h2>
+    <p className="text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed">نوفّر مجموعة من الحلول الاستثمارية المصممة لتلبية احتياجات المستثمرين داخل المملكة.</p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="bg-gray-50 p-8 rounded-2xl shadow-md">
+        <h3 className="text-xl font-semibold text-blue-900 mb-3">الاستثمار العقاري</h3>
+        <p className="text-gray-600">فرص عقارية محلية ذات عوائد مضمونة ومخاطر منخفضة.</p>
+      </div>
+      <div className="bg-gray-50 p-8 rounded-2xl shadow-md">
+        <h3 className="text-xl font-semibold text-blue-900 mb-3">استثمار الأسهم</h3>
+        <p className="text-gray-600">تداول واستثمار أسهم الشركات المدرجة في السوق السعودي.</p>
+      </div>
+      <div className="bg-gray-50 p-8 rounded-2xl shadow-md">
+        <h3 className="text-xl font-semibold text-blue-900 mb-3">تمويل المشاريع</h3>
+        <p className="text-gray-600">خيارات تمويل مبتكرة لدعم رواد الأعمال داخل المملكة.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      // بيانات الاعتماد الثابتة
-      const validCredentials = [
-        { id: '20251234', pass: '1121001398' },
-        { id: '469225955', pass: '1128781125' },
-        { id: '463910', pass: '1132973189' }
-      ];
+<section className="py-20 bg-blue-900 text-white text-center">
+  <div className="max-w-4xl mx-auto px-6">
+    <h2 className="text-3xl font-bold mb-4">منصة سعودية موثوقة بالكامل</h2>
+    <p className="opacity-90 leading-relaxed mb-8">نلتزم بالشفافية، الحماية، والامتثال الكامل للأنظمة السعودية، لتقديم بيئة استثمارية آمنة لجميع المستثمرين.</p>
+    <button className="bg-white text-blue-900 px-10 py-3 rounded-xl font-semibold text-lg shadow-lg hover:opacity-90 transition">سجّل كمستثمر الآن</button>
+  </div>
+</section>
 
-
-      
-
-      // التحقق من بيانات الاعتماد
-      const isValidUser = validCredentials.some(cred => cred.id === identityNumber && cred.pass === password);
-
-      if (isValidUser) {
-        if (rememberMe) {
-          localStorage.setItem('savedIdentity', identityNumber);
-        } else {
-          localStorage.removeItem('savedIdentity');
-        }
-        // إعادة توجيه المستخدم إلى صفحة التأكيد
-        window.location.href = "confirmation.html";
-      } else {
-        messageDiv.textContent = 'خطأ: رقم الطلب أو كلمة المرور غير صحيحة.';
-      }
-    }
-
-    // عند تحميل الصفحة، قم بملء رقم الطلب إذا كان محفوظًا
-    window.onload = function() {
-      const savedIdentity = localStorage.getItem('savedIdentity');
-      if (savedIdentity) {
-        document.getElementById('identityNumber').value = savedIdentity;
-        document.getElementById('rememberMe').checked = true;
-      }
-    };
-  </script>
-</body>
-</html>
+</main>
+    </div>
+  );
+}
